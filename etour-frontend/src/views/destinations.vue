@@ -64,9 +64,10 @@
                                             
                                         </div><!--/.packages-review-->
                                         <div class="about-btn">
-                                            <button class="about-view packages-btn">
+                                            <button class="about-view packages-btn"  @click="showModal = !showModal">
                                                 book now
                                             </button>
+                                            <VuexplosiveModal :visible="showModal"></VuexplosiveModal>
                                         </div><!--/.about-btn-->
                                     </div><!--/.single-package-item-txt-->
                                 </div><!--/.single-package-item-->
@@ -81,13 +82,43 @@
 </template>
 
 <script>
+import VuexplosiveModal from "../components/VuexplosiveModal.vue"
+
 export default {
     data() {
         return {
             info : null,
+            showModal: false,
         }
     },
+    components: {
+        VuexplosiveModal,
+    },
+
+    props: {
+        visible: {
+            default: false
+        },
+        title: {
+            default: "🔥 Boo!"
+        },
+        closeIcon: {
+            default: '<span>&#x274C;</span>'
+        },
+        content: {
+            default: '<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet a tenetur delectus reprehenderit'},
+        footer: {
+        default: '<button>I do nothing!</button>'
+        }
+    },
+
     methods: {
+        // showModal(){
+        //     this.isModalVisible = true;
+        // },
+        // closeModal(){
+        //     this.isModalVisible = false;
+        // },
         refreshData(){
             this.$axios.get('http://localhost:8000/Destinations')
             .then((response)=>{
